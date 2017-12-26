@@ -101,3 +101,13 @@ func NewShader(vertexPath string, fragmentPath string) (Shader, error) {
 func (s Shader) Use() {
   gl.UseProgram(s.ID)
 }
+
+func (s Shader) SetFloat(name string, value float32) {
+  uniformLocation := gl.GetUniformLocation(s.ID, gl.Str(name + "\x00"))
+  gl.Uniform1f(uniformLocation, value)
+}
+
+func (s Shader) SetFloatV4(name string, values []float32) {
+  uniformLocation := gl.GetUniformLocation(s.ID, gl.Str(name + "\x00"))
+  gl.Uniform4f(uniformLocation, values[0], values[1], values[2], values[3])
+}
